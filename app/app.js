@@ -1,6 +1,6 @@
-const Two = require('two.js')
+require('./components/cyclorama/cyclorama.component')
 
 document.addEventListener('DOMContentLoaded', () => {
   // do your setup here
-  console.log('Initialized app');
-});
+  console.log('Initialized app')
+})
