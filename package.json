@@ -12,15 +12,17 @@
   "dependencies": {
     "lodash": "4.17.4",
     "normalize-scss": "^7.0.0",
-    "two.js": "0.6.0",
+    "two.js": "git+https://github.com/jonobr1/two.js.git#dev",
     "vue": "2.4.2"
   },
   "devDependencies": {
     "auto-reload-brunch": "^2",
+    "autoprefixer": "7.1.2",
     "babel-brunch": "6.0.6",
     "babel-preset-latest": "^6",
     "brunch": "^2",
     "clean-css-brunch": "^2",
+    "postcss-brunch": "2.0.5",
     "sass-brunch": "2.10.4",
     "uglify-js-brunch": "^2"
   }

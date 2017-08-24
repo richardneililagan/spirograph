@@ -2,7 +2,10 @@
 exports.files = {
   javascripts: {
     joinTo: {
-      'vendor.js': /^(?!app)/, // Files that are not in `app` dir.
+      'vendor.js': [
+        /^(?!app)/, // Files that are not in `app` dir.
+        /(?!two\.js)/ // Don't include two.js in vendor
+      ],
       'app.js': /^app/
     }
   },
@@ -11,6 +14,11 @@ exports.files = {
 
 exports.plugins = {
   babel: {presets: ['latest']},
+  postcss: {
+    processors: [
+      require('autoprefixer')(['last 2 versions'])
+    ]
+  },
   sass: {
     options: {
       includePaths: [
