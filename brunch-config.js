@@ -7,8 +7,22 @@ exports.files = {
     }
   },
   stylesheets: {joinTo: 'app.css'}
-};
+}
 
 exports.plugins = {
-  babel: {presets: ['latest']}
-};
+  babel: {presets: ['latest']},
+  sass: {
+    options: {
+      includePaths: [
+        'node_modules/normalize-scss/sass'
+      ]
+    }
+  }
+}
+
+exports.modules = {
+  nameCleaner: path => path.replace(/^app\//, ''),
+  autoRequire: {
+    'app.js': ['app']
+  }
+}
