@@ -1,6 +1,17 @@
 // @flow
 
+import { Rotor } from './core/rotor'
+import { Renderer } from './core/renderer'
+
+const root = new Rotor(50, 0)
+
 document.addEventListener('DOMContentLoaded', () => {
-  // do your setup here
-  console.log('Initialized app')
+  // :: get DOM hooks
+  const cyclorama = document.getElementById('cyclorama')
+  const renderer = new Renderer(root)
+
+  renderer.initialize(cyclorama)
+
+  // renderer.render()
+  renderer.play()
 })
