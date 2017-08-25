@@ -1,0 +1,21 @@
+{
+  // :: required by Flow
+  "flow.enabled": true,
+  "flow.useNPMPackagedFlow": true,
+  "javascript.validate.enable": false,
+
+  // :: required by Standard JS
+  "standard.enable": false,
+  "standard.run": "onType",
+  "standard.nodePath": "node_modules/standard-flow",
+
+  // :: eslint
+  "eslint.enable": true,
+  "eslint.options": {
+    "configFile": "./.eslintrc.js"
+  },
+  "eslint.autoFixOnSave": true,
+
+  // :: JS format
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
+}

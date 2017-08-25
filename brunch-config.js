@@ -1,4 +1,3 @@
-// See http://brunch.io for documentation.
 exports.files = {
   javascripts: {
     joinTo: {
@@ -9,16 +8,25 @@ exports.files = {
       'app.js': /^app/
     }
   },
-  stylesheets: {joinTo: 'app.css'}
+  stylesheets: {
+    joinTo: 'app.css'
+  }
 }
 
 exports.plugins = {
-  babel: {presets: ['latest']},
+  babel: {
+    presets: ['latest', 'flow']
+  },
   postcss: {
     processors: [
       require('autoprefixer')(['last 2 versions'])
     ]
   },
+  // eslint: {
+  //   config: {
+  //     extends: ['standard', 'standard-flow']
+  //   }
+  // },
   sass: {
     options: {
       includePaths: [
