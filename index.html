@@ -1,16 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Brunch</title>
+  <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
   <script src="vendor.js"></script>
   <script src="app.js"></script>
-  <script>require('initialize');</script>
 </head>
 <body>
-  <div class="brunch">
-    <a href="http://brunch.io"><img src="http://brunch.io/images/logo.png" alt="Brunch"></a>
-    <p>Bon Appétit.</p>
+  <div id="cyclorama"></div>
+  <div id="chrome">
+    <spirograph-menu v-bind:renderer="renderer"></spirograph-menu>
+    <rotor-list v-bind:rotors="rotors"></rotor-list>
   </div>
 </body>
