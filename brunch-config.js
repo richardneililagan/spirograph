@@ -15,7 +15,8 @@ exports.files = {
 
 exports.plugins = {
   babel: {
-    presets: ['latest', 'flow']
+    presets: ['latest', 'flow'],
+    plugins: ['transform-class-properties']
   },
   postcss: {
     processors: [

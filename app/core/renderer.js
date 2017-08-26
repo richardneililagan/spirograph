@@ -1,7 +1,7 @@
 // @flow
 
 import Two from 'two.js'
-import { Rotor } from './rotor'
+import { Pen, Rotor } from './rotor'
 
 type Point = {
   x: number,
@@ -20,7 +20,7 @@ export class Renderer {
   canvas: Two
   rootRotor: Rotor
 
-  tickSpeed: number
+  paths: any = {}
 
   get origin (): Point {
     return {
@@ -35,6 +35,8 @@ export class Renderer {
       type: Two.Types.canvas,
       fullscreen: true
     })
+
+    console.debug(this.canvas)
   }
 
   /**
@@ -58,9 +60,9 @@ export class Renderer {
     rotor.rotate(delta)
     const rotorPath = this.canvas.makeCircle(origin.x, origin.y, rotor.radius)
 
-    // rotorPath.stroke = 'rgba(0,0,0,.26)'
-    rotorPath.stroke = 'red'
-    rotorPath.lineWidth = 1
+    rotorPath.noFill()
+    rotorPath.stroke = 'rgba(0,0,0,.26)'
+    rotorPath.lineWidth = 0.5
 
     // :: draw rotor mark
     const anchor: Point = plotPoint(origin, rotor.radius, rotor.rotation)
@@ -70,7 +72,48 @@ export class Renderer {
     )
 
     rotorMark.stroke = 'rgba(0,0,0,.26)'
-    rotorMark.lineWidth = 1
+    rotorMark.lineWidth = 0.5
+
+    // :: ---
+
+    // :: draw rotor pen paths
+    rotor.pens.forEach(pen => {
+      const projectedOrigin = plotPoint(origin, pen.radius, rotor.rotation + pen.rotation)
+      this.drawPenPath(pen, projectedOrigin)
+    })
+
+    // :: ---
+
+    // :: draw rotor links
+    rotor.links.forEach(link => {
+      const projectedOrigin = plotPoint(origin, rotor.radius, rotor.rotation + link.rotation)
+      this.drawRotor(link.rotor, projectedOrigin, delta)
+    })
+  }
+
+  drawPenPath (pen: Pen, vertex: Point) {
+    if (!this.paths[pen.id]) {
+      console.debug(`Creating path for pen ${pen.id}`)
+
+      const p = new Two.Path([], false, true)
+
+      p.stroke = pen.color
+      p.linewidth = pen.width
+      p.noFill()
+
+      this.paths[pen.id] = p
+    }
+
+    const path = this.paths[pen.id]
+    path.vertices.push(new Two.Anchor(vertex.x, vertex.y))
+    this.canvas.scene.add(path)
+
+    // console.debug(path)
+  }
+
+  tick () {
+    this.render()
+    this.canvas.update()
   }
 
   play () {

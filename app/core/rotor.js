@@ -1,18 +1,28 @@
 // @flow
 
-type Point = {
-  x: number,
-  y: number
-}
-
 type RotorLink = {
   rotation: number,
   rotor: Rotor // eslint-disable-line no-use-before-define
 }
 
-type RotorConnection = {
-  offset: Point,
-  rotor: Rotor // eslint-disable-line no-use-before-define
+export class Pen {
+  rotation: number = 0
+  radius: number = 10
+
+  color: string = 'red'
+  width: number = 2
+
+  id: string
+
+  constructor (radius: number, rotation: number, color?: string = 'blue', width?: number = 2) {
+    this.radius = radius
+    this.rotation = rotation
+    this.color = color
+    this.width = width
+
+    // :: generate a (hopefully) unique id
+    this.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+  }
 }
 
 /**
@@ -23,9 +33,13 @@ type RotorConnection = {
  */
 export class Rotor {
 
-  _rotation: number
-  _speed: number
-  _links: RotorLink[]
+  static registration: Rotor[] = []
+
+  _rotation: number = 0
+  _speed: number = 10
+
+  links: RotorLink[] = []
+  pens: Pen[] = []
 
   /**
    * Radius length.
@@ -55,26 +69,8 @@ export class Rotor {
    * @memberof Rotor
    */
   get speed (): number {
-    // :: (2 * Math.PI / torque * 1000)
+    // :: (2 * Math.PI / (speed * 1000))
     return Math.PI / (this._speed * 500)
-  }
-
-  /**
-   * Returns all the rotors attached to this rotor,
-   * along with a tuple offset of each from this rotor's origin.
-   *
-   * @readonly
-   * @type {RotorConnection[]}
-   * @memberof Rotor
-   */
-  get links (): RotorConnection[] {
-    return this._links.map(link => {
-      // :: TODO
-      return {
-        offset: { x: 0, y: 0 },
-        rotor: link.rotor
-      }
-    })
   }
 
   /**
@@ -86,7 +82,7 @@ export class Rotor {
    * @memberof Rotor
    */
   get rotors (): Rotor[] {
-    return this._links.map(link => link.rotor)
+    return this.links.map(link => link.rotor)
   }
 
   /**
@@ -100,11 +96,44 @@ export class Rotor {
     this.radius = r
     this._rotation = rotation
     this._speed = speed
+
+    Rotor.registration.push(this)
   }
 
+  /**
+   * Incremets this rotor's rotation based on how much time has elapsed
+   * since the last render tick.
+   *
+   * @param {number} [tick=0] milliseconds since last render tick
+   * @memberof Rotor
+   */
   rotate (tick: number = 0) {
-    console.log(this.speed, tick, this.rotation, (this.speed * tick))
     this._rotation += (this.speed * tick)
     this._rotation %= (2 * Math.PI)
+  }
+
+  /**
+   * Attaches a Rotor to this one's circumference.
+   *
+   * @param {Rotor} rotor The Rotor to attach.
+   * @param {nunber} rotation The angle from 0 of the bisecting line that marks the anchor point in the circumference where this rotor is attached.
+   * @memberof Rotor
+   */
+  addRotorLink (rotor: Rotor, rotation: nunber) {
+    this.links.push({ rotation, rotor })
+  }
+
+  addPen (radius: number, rotation: number, color?: string, width?: number) {
+    this.pens.push(new Pen(radius, rotation, color, width))
+  }
+
+  /**
+   * Deregisters this Rotor,
+   * and all its links.
+   *
+   * @memberof Rotor
+   */
+  remove () {
+    this.rotors.forEach(rotor => rotor.remove())
   }
 }
