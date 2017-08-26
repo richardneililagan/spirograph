@@ -11,6 +11,9 @@ module.exports = {
     "plugin:import/errors",
     "plugin:import/warnings"
   ],
+  "globals": {
+    "Vue": true
+  },
   "parserOptions": {
     "sourceType": "module"
   },

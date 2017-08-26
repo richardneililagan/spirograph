@@ -31,7 +31,8 @@ exports.plugins = {
   sass: {
     options: {
       includePaths: [
-        'node_modules/normalize-scss/sass'
+        'node_modules/normalize-scss/sass',
+        'node_modules/iconfonts/stylesheets'
       ]
     }
   }

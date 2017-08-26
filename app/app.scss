@@ -1,7 +1,27 @@
 @import 'normalize/import-now';
+@import 'ionicons';
+
+@include ion-font();
 
 * {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-size: 12px;
+  font-family: 'Encode Sans', sans-serif;
+}
+
+#chrome {
+  width: 300px;
+  height: 100vh;
+
+  padding: 2px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background: rgba(white, 0.7);
+  box-shadow: 2px 0px 4px rgba(black, .08);
 }

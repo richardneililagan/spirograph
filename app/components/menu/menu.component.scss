@@ -1,0 +1,22 @@
+@import 'ionicons';
+
+.app-menu {
+  font-size: 14px;
+
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(black, 0.14);
+  margin-bottom: 4px;
+
+  .button {
+    border: 1px solid rgba(black, 0.14);
+    padding: 4px 8px;
+
+    &::before {
+      margin-right: 4px;
+    }
+
+    &.-playsimulation::before {
+      @include ion-icon('play', 12px);
+    }
+  }
+}

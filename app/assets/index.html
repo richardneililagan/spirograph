@@ -3,11 +3,15 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Brunch</title>
+  <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
   <link rel="stylesheet" href="app.css">
   <script src="vendor.js"></script>
   <script src="app.js"></script>
 </head>
 <body>
   <div id="cyclorama"></div>
-  <div id="chrome"></div>
+  <div id="chrome">
+    <spirograph-menu v-bind:renderer="renderer"></spirograph-menu>
+    <rotor-list v-bind:rotors="rotors"></rotor-list>
+  </div>
 </body>

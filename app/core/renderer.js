@@ -22,11 +22,20 @@ export class Renderer {
 
   paths: any = {}
 
+  _timeDelta:number = null
+  get timeDelta (): number {
+    return this._timeDelta || 0
+  }
+
   get origin (): Point {
     return {
       x: this.canvas.width / 2,
       y: this.canvas.height / 2
     }
+  }
+
+  get isPlaying (): boolean {
+    return this.canvas.playing
   }
 
   constructor (root: Rotor) {
@@ -35,6 +44,19 @@ export class Renderer {
       type: Two.Types.canvas,
       fullscreen: true
     })
+
+    this.canvas
+      .bind('update', () => {
+        if (this.canvas.playing) {
+          if (this._timeDelta === null) {
+            this._timeDelta = 0
+          } else { this._timeDelta = this.canvas.timeDelta }
+        } else {
+          this._timeDelta = null
+        }
+      })
+      .bind('pause', () => { this._timeDelta = null })
+      .bind('render', () => this.render())
 
     console.debug(this.canvas)
   }
@@ -51,8 +73,7 @@ export class Renderer {
 
   render () {
     this.canvas.clear()
-    this.drawRotor(this.rootRotor, this.origin, this.canvas.timeDelta)
-    // this.canvas.update()
+    this.drawRotor(this.rootRotor, this.origin, this.timeDelta)
   }
 
   drawRotor (rotor: Rotor, origin: Point, delta: number) {
@@ -117,6 +138,10 @@ export class Renderer {
   }
 
   play () {
-    this.canvas.bind('update', () => this.render()).play()
+    this.canvas.play()
+  }
+
+  pause () {
+    this.canvas.pause()
   }
 }

@@ -1,0 +1,12 @@
+// TODO
+
+.rotor-list {
+
+  padding-top: 2px;
+
+  & .rotor-list {
+    border-left: 1px solid rgba(black, 0.12);
+    margin-left: 2px;
+    padding-left: 2px;
+  }
+}

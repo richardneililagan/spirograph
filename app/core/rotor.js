@@ -85,6 +85,10 @@ export class Rotor {
     return this.links.map(link => link.rotor)
   }
 
+  r () {
+    return this.rotors
+  }
+
   /**
    * Creates an instance of Rotor.
    * @param {number} r - radius length of the rotor.

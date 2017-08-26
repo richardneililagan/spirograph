@@ -1,0 +1,42 @@
+@import 'ionicons';
+
+.rotor {
+
+  .properties {
+    display: flex;
+  }
+
+  .rotorproperty {
+    flex-grow: 1;
+    border: 1px solid rgba(black, 0.12);
+    display: flex;
+
+    & > span,
+    & > input {
+      padding: 4px;
+    }
+
+    & > span {
+      background: rgba(black, 0.08);
+    }
+
+    & > input {
+      width: 100%;
+      border: none;
+    }
+  }
+
+  .action {
+    background: #fff;
+    border: 1px solid rgba(black, 0.12);
+    font-size: 12;
+    cursor: pointer;
+
+    &.-addrotor::before {
+      @include ion-icon('android-add');
+    }
+    &.-deleterotor::before {
+      @include ion-icon('android-cancel');
+    }
+  }
+}
