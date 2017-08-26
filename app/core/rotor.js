@@ -96,7 +96,7 @@ export class Rotor {
    * @param {number} speed - how many seconds to complete one full revolution.
    * @memberof Rotor
    */
-  constructor (r: number, rotation: number, speed: number = 10) {
+  constructor (r: number = 100, rotation: number = 0, speed: number = 10) {
     this.radius = r
     this._rotation = rotation
     this._speed = speed

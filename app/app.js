@@ -31,8 +31,4 @@ document.addEventListener('DOMContentLoaded', () => {
     rotors: [root],
     renderer
   })
-
-  // :: ---
-
-  // renderer.play()
 })
